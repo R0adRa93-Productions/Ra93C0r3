@@ -1,12 +1,12 @@
-# rcCore
+# Ra93C0r3
 
-Central Core Framework for Ra93 Core
+Central Core Framework for Ra93Core
 
-### [Official rcCore Documentation](COMING SOON!)
+### [Official Ra93C0r3 Documentation](COMING SOON!)
 
 # License
 
- Ra93 Core Framework
+ Ra93Core Framework
  Copyright (C) 2023
 
  This program is free software: you can redistribute it and/or modify
