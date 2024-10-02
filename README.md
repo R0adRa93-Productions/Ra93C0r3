@@ -1,6 +1,6 @@
 # Ra93C0r3
 
-Central Core Framework for Ra93 Core
+Central Core Framework for Ra93Core
 
 ### [Official rcCore Documentation](COMING SOON!)
 
