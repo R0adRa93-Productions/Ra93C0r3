@@ -2,7 +2,7 @@
 
 Central Core Framework for Ra93Core
 
-### [Official rcCore Documentation](COMING SOON!)
+### [Official Ra93C0r3 Documentation](COMING SOON!)
 
 # License
 
