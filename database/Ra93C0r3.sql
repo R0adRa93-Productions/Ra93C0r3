@@ -1,8 +1,8 @@
 -- --------------------------------------------------------
--- Host:                         127.0.0.1
--- Server version:               11.4.1-MariaDB - mariadb.org binary distribution
+-- Host:                         192.168.1.125
+-- Server version:               10.10.2-MariaDB - mariadb.org binary distribution
 -- Server OS:                    Win64
--- HeidiSQL Version:             12.6.0.6765
+-- HeidiSQL Version:             12.8.0.6908
 -- --------------------------------------------------------
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -16,10 +16,12 @@
 
 
 -- Dumping database structure for ra93c0r3
-CREATE DATABASE IF NOT EXISTS `ra93c0r3` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci */;
+DROP DATABASE IF EXISTS `ra93c0r3`;
+CREATE DATABASE IF NOT EXISTS `ra93c0r3` /*!40100 DEFAULT CHARACTER SET utf32 COLLATE utf32_unicode_ci */;
 USE `ra93c0r3`;
 
 -- Dumping structure for table ra93c0r3.ban
+DROP TABLE IF EXISTS `ban`;
 CREATE TABLE IF NOT EXISTS `ban` (
   `banID` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `timeDateSet` timestamp NOT NULL,
@@ -32,8 +34,10 @@ CREATE TABLE IF NOT EXISTS `ban` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- Dumping data for table ra93c0r3.ban: ~0 rows (approximately)
+DELETE FROM `ban`;
 
 -- Dumping structure for table ra93c0r3.blipcolor
+DROP TABLE IF EXISTS `blipcolor`;
 CREATE TABLE IF NOT EXISTS `blipcolor` (
   `blipColorID` tinyint(3) unsigned NOT NULL DEFAULT 0,
   `label` varchar(25) NOT NULL,
@@ -44,6 +48,7 @@ CREATE TABLE IF NOT EXISTS `blipcolor` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- Dumping data for table ra93c0r3.blipcolor: ~72 rows (approximately)
+DELETE FROM `blipcolor`;
 INSERT INTO `blipcolor` (`blipColorID`, `label`, `hex`, `colorGroup`) VALUES
 	(0, 'White', '#FEFEFE', 'white'),
 	(1, 'Red', '#E03232', 'red'),
@@ -119,6 +124,7 @@ INSERT INTO `blipcolor` (`blipColorID`, `label`, `hex`, `colorGroup`) VALUES
 	(83, 'Purple', '#A854F2', '"purple"');
 
 -- Dumping structure for table ra93c0r3.blipicon
+DROP TABLE IF EXISTS `blipicon`;
 CREATE TABLE IF NOT EXISTS `blipicon` (
   `blipIconID` smallint(5) unsigned NOT NULL,
   `image` varchar(50) NOT NULL,
@@ -128,6 +134,7 @@ CREATE TABLE IF NOT EXISTS `blipicon` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- Dumping data for table ra93c0r3.blipicon: ~801 rows (approximately)
+DELETE FROM `blipicon`;
 INSERT INTO `blipicon` (`blipIconID`, `image`, `nativeLabel`, `label`) VALUES
 	(0, 'radar_higher.png', 'radar_higher', 'radar higher'),
 	(1, 'radar_level.png', 'radar_level', 'radar level'),
@@ -932,6 +939,7 @@ INSERT INTO `blipicon` (`blipIconID`, `image`, `nativeLabel`, `label`) VALUES
 	(883, 'radar_train_signals_red.png', 'radar_train_signals_red', '"radar train signals red"');
 
 -- Dumping structure for table ra93c0r3.character
+DROP TABLE IF EXISTS `character`;
 CREATE TABLE IF NOT EXISTS `character` (
   `characterID` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `playerID` int(10) unsigned NOT NULL,
@@ -946,8 +954,10 @@ CREATE TABLE IF NOT EXISTS `character` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- Dumping data for table ra93c0r3.character: ~0 rows (approximately)
+DELETE FROM `character`;
 
 -- Dumping structure for table ra93c0r3.charactervehicleextras
+DROP TABLE IF EXISTS `charactervehicleextras`;
 CREATE TABLE IF NOT EXISTS `charactervehicleextras` (
   `characterVehicleExtrasID` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `characterID` int(10) unsigned NOT NULL DEFAULT 0,
@@ -975,8 +985,10 @@ CREATE TABLE IF NOT EXISTS `charactervehicleextras` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- Dumping data for table ra93c0r3.charactervehicleextras: ~0 rows (approximately)
+DELETE FROM `charactervehicleextras`;
 
 -- Dumping structure for table ra93c0r3.item
+DROP TABLE IF EXISTS `item`;
 CREATE TABLE IF NOT EXISTS `item` (
   `itemID` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `vehSpawnCode` varchar(50) DEFAULT NULL,
@@ -1001,8 +1013,10 @@ CREATE TABLE IF NOT EXISTS `item` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- Dumping data for table ra93c0r3.item: ~0 rows (approximately)
+DELETE FROM `item`;
 
 -- Dumping structure for table ra93c0r3.itemcombinable
+DROP TABLE IF EXISTS `itemcombinable`;
 CREATE TABLE IF NOT EXISTS `itemcombinable` (
   `itemCombinableID` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `itemID` int(10) unsigned NOT NULL,
@@ -1015,8 +1029,10 @@ CREATE TABLE IF NOT EXISTS `itemcombinable` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- Dumping data for table ra93c0r3.itemcombinable: ~0 rows (approximately)
+DELETE FROM `itemcombinable`;
 
 -- Dumping structure for table ra93c0r3.jgvehextra
+DROP TABLE IF EXISTS `jgvehextra`;
 CREATE TABLE IF NOT EXISTS `jgvehextra` (
   `vehExtraID` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `jobGangID` tinyint(3) unsigned NOT NULL DEFAULT 0,
@@ -1043,8 +1059,10 @@ CREATE TABLE IF NOT EXISTS `jgvehextra` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- Dumping data for table ra93c0r3.jgvehextra: ~0 rows (approximately)
+DELETE FROM `jgvehextra`;
 
 -- Dumping structure for table ra93c0r3.jobgang
+DROP TABLE IF EXISTS `jobgang`;
 CREATE TABLE IF NOT EXISTS `jobgang` (
   `jobGangID` tinyint(3) unsigned NOT NULL AUTO_INCREMENT,
   `label` varchar(50) NOT NULL,
@@ -1093,8 +1111,10 @@ CREATE TABLE IF NOT EXISTS `jobgang` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- Dumping data for table ra93c0r3.jobgang: ~0 rows (approximately)
+DELETE FROM `jobgang`;
 
 -- Dumping structure for table ra93c0r3.log
+DROP TABLE IF EXISTS `log`;
 CREATE TABLE IF NOT EXISTS `log` (
   `logID` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `resource` varchar(50) NOT NULL,
@@ -1109,8 +1129,10 @@ CREATE TABLE IF NOT EXISTS `log` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- Dumping data for table ra93c0r3.log: ~0 rows (approximately)
+DELETE FROM `log`;
 
 -- Dumping structure for table ra93c0r3.ped
+DROP TABLE IF EXISTS `ped`;
 CREATE TABLE IF NOT EXISTS `ped` (
   `pedID` smallint(5) unsigned NOT NULL AUTO_INCREMENT,
   `category` enum('Ambient','Animal','Cutscene','Gang','Multiplayer','Other','Scenario','Story','Story Scenario') NOT NULL,
@@ -1123,6 +1145,7 @@ CREATE TABLE IF NOT EXISTS `ped` (
 ) ENGINE=InnoDB AUTO_INCREMENT=1050 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- Dumping data for table ra93c0r3.ped: ~1,049 rows (approximately)
+DELETE FROM `ped`;
 INSERT INTO `ped` (`pedID`, `category`, `model`, `label`, `sex`, `prop`, `component`) VALUES
 	(1, 'Ambient', 'a_f_m_bevhills_01.webp', 'a_f_m_bevhills_01', 'Female', 1, 5),
 	(2, 'Ambient', 'a_f_m_bevhills_02.webp', 'a_f_m_bevhills_02', 'Female', 1, 4),
@@ -2175,25 +2198,28 @@ INSERT INTO `ped` (`pedID`, `category`, `model`, `label`, `sex`, `prop`, `compon
 	(1049, 'Story', 'player_zero.webp', 'player_zero', 'Male', 3, 12);
 
 -- Dumping structure for table ra93c0r3.pedcategory
+DROP TABLE IF EXISTS `pedcategory`;
 CREATE TABLE IF NOT EXISTS `pedcategory` (
   `pedCategoryID` tinyint(3) unsigned NOT NULL AUTO_INCREMENT,
   `label` varchar(25) NOT NULL,
   PRIMARY KEY (`pedCategoryID`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- Dumping data for table ra93c0r3.pedcategory: ~9 rows (approximately)
+DELETE FROM `pedcategory`;
 INSERT INTO `pedcategory` (`pedCategoryID`, `label`) VALUES
 	(1, 'Ambient'),
 	(2, 'Animal'),
 	(3, 'Cutscene'),
 	(4, 'Gang'),
 	(5, 'Multiplayer'),
- (6, 'Other'),
+	(6, 'Other'),
 	(7, 'Scenario'),
 	(8, 'Story'),
 	(9, 'Story Scenario');
 
 -- Dumping structure for table ra93c0r3.player
+DROP TABLE IF EXISTS `player`;
 CREATE TABLE IF NOT EXISTS `player` (
   `playerID` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `username` varchar(25) DEFAULT NULL,
@@ -2205,15 +2231,65 @@ CREATE TABLE IF NOT EXISTS `player` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- Dumping data for table ra93c0r3.player: ~0 rows (approximately)
+DELETE FROM `player`;
+
+-- Dumping structure for table ra93c0r3.players
+DROP TABLE IF EXISTS `players`;
+CREATE TABLE IF NOT EXISTS `players` (
+  `citizenid` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `license` varchar(50) NOT NULL,
+  `playerData` mediumtext NOT NULL,
+  `lastUpdated` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  PRIMARY KEY (`citizenid`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf32 COLLATE=utf32_unicode_ci;
+
+-- Dumping data for table ra93c0r3.players: ~0 rows (approximately)
+DELETE FROM `players`;
+
+-- Dumping structure for table ra93c0r3.resources
+DROP TABLE IF EXISTS `resources`;
+CREATE TABLE IF NOT EXISTS `resources` (
+  `resourceID` smallint(5) unsigned NOT NULL,
+  `resource` varchar(128) NOT NULL,
+  `enabled` enum('true','false') NOT NULL DEFAULT 'true',
+  PRIMARY KEY (`resourceID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf32 COLLATE=utf32_unicode_ci;
+
+-- Dumping data for table ra93c0r3.resources: ~0 rows (approximately)
+DELETE FROM `resources`;
+
+-- Dumping structure for table ra93c0r3.serverconfig
+DROP TABLE IF EXISTS `serverconfig`;
+CREATE TABLE IF NOT EXISTS `serverconfig` (
+  `serverConfigID` tinyint(3) unsigned NOT NULL AUTO_INCREMENT,
+  `sv_hostname` varchar(50) NOT NULL,
+  `sv_projectName` varchar(50) NOT NULL,
+  `sv_projectDesc` tinytext NOT NULL,
+  `sv_licensekey` varchar(50) NOT NULL,
+  `IPv4` varchar(15) NOT NULL DEFAULT '0.0.0.0',
+  `IPv6` varchar(45) NOT NULL,
+  `port` smallint(5) unsigned NOT NULL DEFAULT 30120,
+  `sv_maxclients` tinyint(3) unsigned NOT NULL DEFAULT 48,
+  `tags` tinytext NOT NULL,
+  `steamWebApiKey` varchar(50) NOT NULL DEFAULT 'none',
+  `gameBuild` smallint(5) unsigned NOT NULL DEFAULT 3095,
+  `useSystemChat` enum('true','false') NOT NULL DEFAULT 'true',
+  PRIMARY KEY (`serverConfigID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf32 COLLATE=utf32_unicode_ci;
+
+-- Dumping data for table ra93c0r3.serverconfig: ~0 rows (approximately)
+DELETE FROM `serverconfig`;
 
 -- Dumping structure for table ra93c0r3.vehiclecategory
+DROP TABLE IF EXISTS `vehiclecategory`;
 CREATE TABLE IF NOT EXISTS `vehiclecategory` (
   `vehicleCategoryID` tinyint(4) unsigned NOT NULL AUTO_INCREMENT,
   `category` varchar(25) DEFAULT NULL,
   PRIMARY KEY (`vehicleCategoryID`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Dumping data for table ra93c0r3.vehiclecategory: ~21 rows (approximately)
+-- Dumping data for table ra93c0r3.vehiclecategory: ~23 rows (approximately)
+DELETE FROM `vehiclecategory`;
 INSERT INTO `vehiclecategory` (`vehicleCategoryID`, `category`) VALUES
 	(0, 'Compacts'),
 	(1, 'Sedans'),
