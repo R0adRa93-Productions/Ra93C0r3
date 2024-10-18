@@ -16,12 +16,10 @@
 
 
 -- Dumping database structure for ra93c0r3
-DROP DATABASE IF EXISTS `ra93c0r3`;
 CREATE DATABASE IF NOT EXISTS `ra93c0r3` /*!40100 DEFAULT CHARACTER SET utf32 COLLATE utf32_unicode_ci */;
 USE `ra93c0r3`;
 
 -- Dumping structure for table ra93c0r3.ban
-DROP TABLE IF EXISTS `ban`;
 CREATE TABLE IF NOT EXISTS `ban` (
   `banID` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `timeDateSet` timestamp NOT NULL,
@@ -30,14 +28,13 @@ CREATE TABLE IF NOT EXISTS `ban` (
   `playerID` int(10) unsigned NOT NULL,
   PRIMARY KEY (`banID`),
   KEY `FK_ban_playerID` (`playerID`),
-  CONSTRAINT `FK_ban_playerID` FOREIGN KEY (`playerID`) REFERENCES `player` (`playerID`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `FK_ban_playerID` FOREIGN KEY (`playerID`) REFERENCES `players` (`playerID`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- Dumping data for table ra93c0r3.ban: ~0 rows (approximately)
 DELETE FROM `ban`;
 
 -- Dumping structure for table ra93c0r3.blipcolor
-DROP TABLE IF EXISTS `blipcolor`;
 CREATE TABLE IF NOT EXISTS `blipcolor` (
   `blipColorID` tinyint(3) unsigned NOT NULL DEFAULT 0,
   `label` varchar(25) NOT NULL,
@@ -124,7 +121,6 @@ INSERT INTO `blipcolor` (`blipColorID`, `label`, `hex`, `colorGroup`) VALUES
 	(83, 'Purple', '#A854F2', '"purple"');
 
 -- Dumping structure for table ra93c0r3.blipicon
-DROP TABLE IF EXISTS `blipicon`;
 CREATE TABLE IF NOT EXISTS `blipicon` (
   `blipIconID` smallint(5) unsigned NOT NULL,
   `image` varchar(50) NOT NULL,
@@ -133,7 +129,7 @@ CREATE TABLE IF NOT EXISTS `blipicon` (
   PRIMARY KEY (`blipIconID`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Dumping data for table ra93c0r3.blipicon: ~801 rows (approximately)
+-- Dumping data for table ra93c0r3.blipicon: ~194 rows (approximately)
 DELETE FROM `blipicon`;
 INSERT INTO `blipicon` (`blipIconID`, `image`, `nativeLabel`, `label`) VALUES
 	(0, 'radar_higher.png', 'radar_higher', 'radar higher'),
@@ -938,9 +934,8 @@ INSERT INTO `blipicon` (`blipIconID`, `image`, `nativeLabel`, `label`) VALUES
 	(882, 'radar_train_signals_green.png', 'radar_train_signals_green', 'radar train signals green'),
 	(883, 'radar_train_signals_red.png', 'radar_train_signals_red', '"radar train signals red"');
 
--- Dumping structure for table ra93c0r3.character
-DROP TABLE IF EXISTS `character`;
-CREATE TABLE IF NOT EXISTS `character` (
+-- Dumping structure for table ra93c0r3.characters
+CREATE TABLE IF NOT EXISTS `characters` (
   `characterID` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `playerID` int(10) unsigned NOT NULL,
   `firstName` varchar(25) NOT NULL,
@@ -949,15 +944,13 @@ CREATE TABLE IF NOT EXISTS `character` (
   `nationality` varchar(25) NOT NULL,
   `activeResidence` tinyint(3) unsigned NOT NULL,
   `activeJob` tinyint(3) unsigned DEFAULT NULL,
-  `activeGang` tinyint(3) unsigned DEFAULT NULL,
   PRIMARY KEY (`characterID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Dumping data for table ra93c0r3.character: ~0 rows (approximately)
-DELETE FROM `character`;
+-- Dumping data for table ra93c0r3.characters: ~0 rows (approximately)
+DELETE FROM `characters`;
 
 -- Dumping structure for table ra93c0r3.charactervehicleextras
-DROP TABLE IF EXISTS `charactervehicleextras`;
 CREATE TABLE IF NOT EXISTS `charactervehicleextras` (
   `characterVehicleExtrasID` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `characterID` int(10) unsigned NOT NULL DEFAULT 0,
@@ -980,15 +973,98 @@ CREATE TABLE IF NOT EXISTS `charactervehicleextras` (
   PRIMARY KEY (`characterVehicleExtrasID`),
   KEY `FK_charactervehicleextras_character` (`characterID`),
   KEY `FK_charactervehicleextras_item` (`vehicleID`),
-  CONSTRAINT `FK_charactervehicleextras_character` FOREIGN KEY (`characterID`) REFERENCES `character` (`characterID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `FK_charactervehicleextras_character` FOREIGN KEY (`characterID`) REFERENCES `characters` (`characterID`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `FK_charactervehicleextras_item` FOREIGN KEY (`vehicleID`) REFERENCES `item` (`itemID`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- Dumping data for table ra93c0r3.charactervehicleextras: ~0 rows (approximately)
 DELETE FROM `charactervehicleextras`;
 
+-- Dumping structure for table ra93c0r3.commands
+CREATE TABLE IF NOT EXISTS `commands` (
+  `command` varchar(50) NOT NULL,
+  PRIMARY KEY (`command`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf32 COLLATE=utf32_unicode_ci;
+
+-- Dumping data for table ra93c0r3.commands: ~49 rows (approximately)
+DELETE FROM `commands`;
+INSERT INTO `commands` (`command`) VALUES
+	('add_ace'),
+	('add_principal'),
+	('clientkick'),
+	('con_addChannelFilter'),
+	('con_channelFilters'),
+	('con_filterREquestControlSettleTimer'),
+	('con_removeChannelFilter'),
+	('endpoint_add_tcp'),
+	('endpointi_add_udp'),
+	('ensure'),
+	('exec'),
+	('gamename'),
+	('load_server_icon'),
+	('net_tcpConnLimit'),
+	('netPort'),
+	('onesync'),
+	('quit'),
+	('rcon_password'),
+	('refresh'),
+	('remove_ace'),
+	('remove_principal'),
+	('restart'),
+	('say'),
+	('sets'),
+	('sets sv_projectDesc'),
+	('sets sv_projectName'),
+	('start'),
+	('status'),
+	('steam_webApikey'),
+	('stop'),
+	('sv_authMaxVariance'),
+	('sv_authMinTrust'),
+	('sv_enableNetworkedPhoneExplosions'),
+	('sv_enableNetworkedScriptEntityStates'),
+	('sv_enableNetworkedSounds'),
+	('sv_endpointPrivacy'),
+	('sv_enforceGameBuild'),
+	('sv_experimentalNetEventHandler'),
+	('sv_experimentalOnesyncPopulation'),
+	('sv_experimentalStateBagsHandler'),
+	('sv_filterRequestControl'),
+	('sv_filterRequestControlSettleTimer'),
+	('sv_hostname'),
+	('sv_master1'),
+	('sv_maxClients'),
+	('sv_pureLevel'),
+	('sv_requestParanoia'),
+	('svgui'),
+	('test_ace');
+
+-- Dumping structure for table ra93c0r3.groupassignments
+CREATE TABLE IF NOT EXISTS `groupassignments` (
+  `groupAssignmentID` smallint(5) unsigned NOT NULL AUTO_INCREMENT,
+  `groupID` tinyint(3) unsigned NOT NULL,
+  `playerID` int(10) unsigned NOT NULL,
+  PRIMARY KEY (`groupAssignmentID`),
+  KEY `FKGroupsGroupID` (`groupID`) USING BTREE,
+  KEY `FKPlayersPlayerID` (`playerID`) USING BTREE,
+  CONSTRAINT `FKGroupsGroupID` FOREIGN KEY (`groupID`) REFERENCES `groups` (`groupID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `FKPlayersPlayerID` FOREIGN KEY (`playerID`) REFERENCES `players` (`playerID`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf32 COLLATE=utf32_unicode_ci;
+
+-- Dumping data for table ra93c0r3.groupassignments: ~0 rows (approximately)
+DELETE FROM `groupassignments`;
+
+-- Dumping structure for table ra93c0r3.groups
+CREATE TABLE IF NOT EXISTS `groups` (
+  `groupID` tinyint(3) unsigned NOT NULL AUTO_INCREMENT,
+  `groupName` varchar(50) NOT NULL,
+  PRIMARY KEY (`groupID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf32 COLLATE=utf32_unicode_ci;
+
+-- Dumping data for table ra93c0r3.groups: ~0 rows (approximately)
+DELETE FROM `groups`;
+
 -- Dumping structure for table ra93c0r3.item
-DROP TABLE IF EXISTS `item`;
 CREATE TABLE IF NOT EXISTS `item` (
   `itemID` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `vehSpawnCode` varchar(50) DEFAULT NULL,
@@ -1016,7 +1092,6 @@ CREATE TABLE IF NOT EXISTS `item` (
 DELETE FROM `item`;
 
 -- Dumping structure for table ra93c0r3.itemcombinable
-DROP TABLE IF EXISTS `itemcombinable`;
 CREATE TABLE IF NOT EXISTS `itemcombinable` (
   `itemCombinableID` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `itemID` int(10) unsigned NOT NULL,
@@ -1032,7 +1107,6 @@ CREATE TABLE IF NOT EXISTS `itemcombinable` (
 DELETE FROM `itemcombinable`;
 
 -- Dumping structure for table ra93c0r3.jgvehextra
-DROP TABLE IF EXISTS `jgvehextra`;
 CREATE TABLE IF NOT EXISTS `jgvehextra` (
   `vehExtraID` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `jobGangID` tinyint(3) unsigned NOT NULL DEFAULT 0,
@@ -1062,7 +1136,6 @@ CREATE TABLE IF NOT EXISTS `jgvehextra` (
 DELETE FROM `jgvehextra`;
 
 -- Dumping structure for table ra93c0r3.jobgang
-DROP TABLE IF EXISTS `jobgang`;
 CREATE TABLE IF NOT EXISTS `jobgang` (
   `jobGangID` tinyint(3) unsigned NOT NULL AUTO_INCREMENT,
   `label` varchar(50) NOT NULL,
@@ -1114,7 +1187,6 @@ CREATE TABLE IF NOT EXISTS `jobgang` (
 DELETE FROM `jobgang`;
 
 -- Dumping structure for table ra93c0r3.log
-DROP TABLE IF EXISTS `log`;
 CREATE TABLE IF NOT EXISTS `log` (
   `logID` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `resource` varchar(50) NOT NULL,
@@ -1125,14 +1197,13 @@ CREATE TABLE IF NOT EXISTS `log` (
   `playerID` int(10) unsigned DEFAULT NULL,
   PRIMARY KEY (`logID`),
   KEY `FK_log_player` (`playerID`),
-  CONSTRAINT `FK_log_player` FOREIGN KEY (`playerID`) REFERENCES `player` (`playerID`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `FK_log_player` FOREIGN KEY (`playerID`) REFERENCES `players` (`playerID`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- Dumping data for table ra93c0r3.log: ~0 rows (approximately)
 DELETE FROM `log`;
 
 -- Dumping structure for table ra93c0r3.ped
-DROP TABLE IF EXISTS `ped`;
 CREATE TABLE IF NOT EXISTS `ped` (
   `pedID` smallint(5) unsigned NOT NULL AUTO_INCREMENT,
   `category` enum('Ambient','Animal','Cutscene','Gang','Multiplayer','Other','Scenario','Story','Story Scenario') NOT NULL,
@@ -2198,7 +2269,6 @@ INSERT INTO `ped` (`pedID`, `category`, `model`, `label`, `sex`, `prop`, `compon
 	(1049, 'Story', 'player_zero.webp', 'player_zero', 'Male', 3, 12);
 
 -- Dumping structure for table ra93c0r3.pedcategory
-DROP TABLE IF EXISTS `pedcategory`;
 CREATE TABLE IF NOT EXISTS `pedcategory` (
   `pedCategoryID` tinyint(3) unsigned NOT NULL AUTO_INCREMENT,
   `label` varchar(25) NOT NULL,
@@ -2218,9 +2288,23 @@ INSERT INTO `pedcategory` (`pedCategoryID`, `label`) VALUES
 	(8, 'Story'),
 	(9, 'Story Scenario');
 
--- Dumping structure for table ra93c0r3.player
-DROP TABLE IF EXISTS `player`;
-CREATE TABLE IF NOT EXISTS `player` (
+-- Dumping structure for table ra93c0r3.permissions
+CREATE TABLE IF NOT EXISTS `permissions` (
+  `permissionID` smallint(6) NOT NULL AUTO_INCREMENT,
+  `groupID` tinyint(3) unsigned NOT NULL,
+  `command` varchar(50) NOT NULL,
+  PRIMARY KEY (`permissionID`),
+  KEY `FKPermissionsGroupsGroupID` (`groupID`),
+  KEY `FKPermissionsCommandsCommand` (`command`),
+  CONSTRAINT `FKPermissionsCommandsCommand` FOREIGN KEY (`command`) REFERENCES `commands` (`command`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `FKPermissionsGroupsGroupID` FOREIGN KEY (`groupID`) REFERENCES `groups` (`groupID`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf32 COLLATE=utf32_unicode_ci;
+
+-- Dumping data for table ra93c0r3.permissions: ~0 rows (approximately)
+DELETE FROM `permissions`;
+
+-- Dumping structure for table ra93c0r3.players
+CREATE TABLE IF NOT EXISTS `players` (
   `playerID` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `username` varchar(25) DEFAULT NULL,
   `password` varchar(25) DEFAULT NULL,
@@ -2230,27 +2314,13 @@ CREATE TABLE IF NOT EXISTS `player` (
   UNIQUE KEY `license` (`license`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Dumping data for table ra93c0r3.player: ~0 rows (approximately)
-DELETE FROM `player`;
-
--- Dumping structure for table ra93c0r3.players
-DROP TABLE IF EXISTS `players`;
-CREATE TABLE IF NOT EXISTS `players` (
-  `citizenid` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `license` varchar(50) NOT NULL,
-  `playerData` mediumtext NOT NULL,
-  `lastUpdated` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
-  PRIMARY KEY (`citizenid`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf32 COLLATE=utf32_unicode_ci;
-
 -- Dumping data for table ra93c0r3.players: ~0 rows (approximately)
 DELETE FROM `players`;
 
 -- Dumping structure for table ra93c0r3.resources
-DROP TABLE IF EXISTS `resources`;
 CREATE TABLE IF NOT EXISTS `resources` (
   `resourceID` smallint(5) unsigned NOT NULL,
-  `resource` varchar(128) NOT NULL,
+  `resourceName` varchar(128) NOT NULL,
   `enabled` enum('true','false') NOT NULL DEFAULT 'true',
   PRIMARY KEY (`resourceID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf32 COLLATE=utf32_unicode_ci;
@@ -2259,36 +2329,26 @@ CREATE TABLE IF NOT EXISTS `resources` (
 DELETE FROM `resources`;
 
 -- Dumping structure for table ra93c0r3.serverconfig
-DROP TABLE IF EXISTS `serverconfig`;
 CREATE TABLE IF NOT EXISTS `serverconfig` (
   `serverConfigID` tinyint(3) unsigned NOT NULL AUTO_INCREMENT,
-  `sv_hostname` varchar(50) NOT NULL,
-  `sv_projectName` varchar(50) NOT NULL,
-  `sv_projectDesc` tinytext NOT NULL,
-  `sv_licensekey` varchar(50) NOT NULL,
-  `IPv4` varchar(15) NOT NULL DEFAULT '0.0.0.0',
-  `IPv6` varchar(45) NOT NULL,
-  `port` smallint(5) unsigned NOT NULL DEFAULT 30120,
-  `sv_maxclients` tinyint(3) unsigned NOT NULL DEFAULT 48,
-  `tags` tinytext NOT NULL,
-  `steamWebApiKey` varchar(50) NOT NULL DEFAULT 'none',
-  `gameBuild` smallint(5) unsigned NOT NULL DEFAULT 3095,
-  `useSystemChat` enum('true','false') NOT NULL DEFAULT 'true',
-  PRIMARY KEY (`serverConfigID`)
+  `command` varchar(50) NOT NULL,
+  `instruction` varchar(1024) NOT NULL,
+  PRIMARY KEY (`serverConfigID`),
+  KEY `FKServerConfigCommandsCommand` (`command`),
+  CONSTRAINT `FKServerConfigCommandsCommand` FOREIGN KEY (`command`) REFERENCES `commands` (`command`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf32 COLLATE=utf32_unicode_ci;
 
 -- Dumping data for table ra93c0r3.serverconfig: ~0 rows (approximately)
 DELETE FROM `serverconfig`;
 
 -- Dumping structure for table ra93c0r3.vehiclecategory
-DROP TABLE IF EXISTS `vehiclecategory`;
 CREATE TABLE IF NOT EXISTS `vehiclecategory` (
   `vehicleCategoryID` tinyint(4) unsigned NOT NULL AUTO_INCREMENT,
   `category` varchar(25) DEFAULT NULL,
   PRIMARY KEY (`vehicleCategoryID`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Dumping data for table ra93c0r3.vehiclecategory: ~23 rows (approximately)
+-- Dumping data for table ra93c0r3.vehiclecategory: ~0 rows (approximately)
 DELETE FROM `vehiclecategory`;
 INSERT INTO `vehiclecategory` (`vehicleCategoryID`, `category`) VALUES
 	(0, 'Compacts'),
