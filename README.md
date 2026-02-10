@@ -1,10 +1,10 @@
-# 📌 Ra93C0r3
+# Ra93C0r3
 
 Ra93C0r3 is a community-driven, open-source core framework designed for building advanced multiplayer experiences on HELIX — the next-generation open-world sandbox game platform powered by Unreal Engine with robust Lua scripting support.
 
 At its heart, Ra93C0r3 provides a centralized foundation for HELIX servers and game modes, incorporating structured SQL database systems alongside Lua scripting to handle gameplay logic, persistent data, and modular systems with high flexibility and performance. The framework aims to accelerate development workflows, encourage community contributions, and standardize best practices for scalable HELIX projects.
 
-# 🧠 Key Features
+## Key Features
 
 - Modular Core Architecture — A flexible base that organizes server and game logic cleanly, making extension and customization intuitive.
 
@@ -16,15 +16,20 @@ At its heart, Ra93C0r3 provides a centralized foundation for HELIX servers and g
 
 - Open Source & Community Oriented — GPL-licensed with public collaboration in mind.
 
-# 👥 Team
+## Team
 
 This project is actively developed and maintained by:
 
-- r0adra93 (Thomas Applegate)
+- [r0adra93 (Thomas Applegate)](https://github.com/r0adra93)
 
-- amanbagla03 (Aman Bagla)
+- [amanbagla03 (Aman Bagla)](https://github.com/AmanBagla03)
 
-# 🚀 Who Is It For?
+## Links
+
+[Discord](https://discord.gg/VrrHWnMuft)
+[HELIX](https://helixgame.com)
+
+## Who Is It For?
 
 Ra93C0r3 is ideal for:
 
