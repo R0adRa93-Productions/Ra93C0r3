@@ -26,8 +26,8 @@ This project is actively developed and maintained by:
 
 ## Links
 
-[Discord](https://discord.gg/VrrHWnMuft)
-[HELIX](https://helixgame.com)
+- [Discord](https://discord.gg/VrrHWnMuft)
+- [HELIX](https://helixgame.com)
 
 ## Who Is It For?
 
