@@ -1,13 +1,50 @@
 # Ra93C0r3
 
-Central Core Framework for Ra93Core
+Ra93C0r3 is a community-driven, open-source core framework designed for building advanced multiplayer experiences on HELIX — the next-generation open-world sandbox game platform powered by Unreal Engine with robust Lua scripting support.
+
+At its heart, Ra93C0r3 provides a centralized foundation for HELIX servers and game modes, incorporating structured SQL database systems alongside Lua scripting to handle gameplay logic, persistent data, and modular systems with high flexibility and performance. The framework aims to accelerate development workflows, encourage community contributions, and standardize best practices for scalable HELIX projects.
+
+## Key Features
+
+- Modular Core Architecture — A flexible base that organizes server and game logic cleanly, making extension and customization intuitive.
+
+- SQL Integration — Built-in database support for reliable data persistence (user accounts, inventories, world state, etc.).
+
+- Lua Scripting Support — Leverages HELIX’s native Lua API for scripting gameplay, events, and systems.
+
+- Frontend Assets & UI — Includes supporting HTML/CSS assets for user interfaces and in-game tools.
+
+- Open Source & Community Oriented — GPL-licensed with public collaboration in mind.
+
+## Team
+
+This project is actively developed and maintained by:
+
+- [r0adra93 (Thomas Applegate)](https://github.com/r0adra93)
+
+- [amanbagla03 (Aman Bagla)](https://github.com/AmanBagla03)
+
+## Links
+
+- [Discord](https://discord.gg/VrrHWnMuft)
+- [HELIX](https://helixgame.com)
+
+## Who Is It For?
+
+Ra93C0r3 is ideal for:
+
+- Developers building roleplay, progression, or sandbox systems on HELIX
+
+- Teams wanting a structured, database-driven framework
+
+- Contributors looking to expand HELIX tooling with community standards
 
 ### [Official Ra93C0r3 Documentation](COMING SOON!)
 
 # License
 
  Ra93Core Framework
- Copyright (C) 2023
+ Copyright (C) 2026
 
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
