@@ -1,4 +1,2 @@
-fx_version 'cerulean'
-games {'gta5'}
-author 'fiveM.net'
-description 'FiveM / GTA V / Blip Images'
+-- DEPRECATED: FiveM/cfx fxmanifest format. Replaced by Package.toml for HELIX.
+-- See Package.toml in this directory.

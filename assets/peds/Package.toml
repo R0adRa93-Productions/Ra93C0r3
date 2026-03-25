@@ -1,0 +1,13 @@
+[meta]
+    title       = "Peds"
+    author      = "Ra93C0r3 / R0adRa93-Productions"
+    version     = "1.0.0"
+    description = "Ra93C0r3 character/ped definitions for HELIX"
+
+[package]
+    type = "asset-pack"
+
+# NOTE: The legacy `list` file contained GTA V ped model URLs from docs.fivem.net.
+# These are not compatible with HELIX. Character models must be sourced and defined
+# using HELIX's Unreal Engine asset pipeline. The list file is retained for reference
+# during migration but should not be used in a HELIX build context.

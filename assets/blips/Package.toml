@@ -1,0 +1,8 @@
+[meta]
+    title       = "Blips"
+    author      = "Ra93C0r3 / R0adRa93-Productions"
+    version     = "1.0.0"
+    description = "Ra93C0r3 blip color and icon definitions"
+
+[package]
+    type = "asset-pack"
