@@ -2304,29 +2304,102 @@ CREATE TABLE IF NOT EXISTS `permissions` (
 DELETE FROM `permissions`;
 
 -- Dumping structure for table ra93c0r3.players
+-- helixId is the HELIX platform account identifier, retrieved via Helix.Player.helixId()
+-- in HelixJS or via the playerId parameter in Helix.playerJoined(). It is the sole
+-- persistent link between a HELIX account and Ra93C0r3 data. No password storage:
+-- authentication is handled entirely by the HELIX platform before a player connects.
+-- displayName is a cached copy of HPlayer:GetName() for admin UI display only —
+-- it carries no uniqueness constraint because HELIX display names can change.
 CREATE TABLE IF NOT EXISTS `players` (
-  `playerID` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `username` varchar(25) DEFAULT NULL,
-  `password` varchar(25) DEFAULT NULL,
-  `license` varchar(100) DEFAULT NULL,
+  `playerID`    int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `helixId`     varchar(64) NOT NULL,
+  `displayName` varchar(64) DEFAULT NULL,
   PRIMARY KEY (`playerID`),
-  UNIQUE KEY `username` (`username`),
-  UNIQUE KEY `license` (`license`)
+  UNIQUE KEY `uq_helixId` (`helixId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- Dumping data for table ra93c0r3.players: ~0 rows (approximately)
 DELETE FROM `players`;
 
 -- Dumping structure for table ra93c0r3.resources
+-- Internal module registry for Ra93C0r3. Server owners enable/disable systems
+-- and subsystems from the in-game Administration panel. moduleKey is the
+-- internal identifier used by the Ra93C0r3 module loader. loadOrder controls
+-- boot sequence (lower = earlier). parentResourceID enables system/subsystem
+-- hierarchy (subsystems reference their parent system row).
 CREATE TABLE IF NOT EXISTS `resources` (
-  `resourceID` smallint(5) unsigned NOT NULL,
-  `resourceName` varchar(128) NOT NULL,
-  `enabled` enum('true','false') NOT NULL DEFAULT 'true',
-  PRIMARY KEY (`resourceID`)
+  `resourceID`       smallint(5) unsigned NOT NULL AUTO_INCREMENT,
+  `parentResourceID` smallint(5) unsigned DEFAULT NULL,
+  `resourceType`     ENUM('system','subsystem') NOT NULL DEFAULT 'subsystem',
+  `moduleKey`        varchar(64) NOT NULL,
+  `displayName`      varchar(100) NOT NULL,
+  `description`      varchar(512) DEFAULT NULL,
+  `loadOrder`        smallint(5) unsigned NOT NULL DEFAULT 100,
+  `enabled`          BOOLEAN NOT NULL DEFAULT TRUE,
+  PRIMARY KEY (`resourceID`),
+  UNIQUE KEY `uq_moduleKey` (`moduleKey`),
+  KEY `FK_resources_parent` (`parentResourceID`),
+  CONSTRAINT `FK_resources_parent`
+    FOREIGN KEY (`parentResourceID`) REFERENCES `resources` (`resourceID`)
+    ON DELETE SET NULL ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf32 COLLATE=utf32_unicode_ci;
 
--- Dumping data for table ra93c0r3.resources: ~0 rows (approximately)
+-- Dumping data for table ra93c0r3.resources: ~26 rows (approximately)
 DELETE FROM `resources`;
+INSERT INTO `resources` (`resourceID`, `parentResourceID`, `resourceType`, `moduleKey`, `displayName`, `description`, `loadOrder`, `enabled`) VALUES
+  -- Core (always-on, cannot be disabled)
+  (1,  NULL, 'system',    'core',              'Core',                      'Database connector and shared utilities. Required by all systems.', 1,   TRUE),
+  (2,  NULL, 'system',    'admin',             'Administration System',     'In-game and web admin panel: user, resource, entity, inventory, and report management.', 2, TRUE),
+  -- Basic RP tier
+  (3,  NULL, 'system',    'inventory',         'Inventory System',          'Item, container, and drop management.', 10, TRUE),
+  (4,  3,    'subsystem', 'clothing',          'Clothing Management',       'Character clothing and appearance. Requires Inventory.', 11, TRUE),
+  (5,  NULL, 'system',    'economy',           'Financial / Economy System','Currencies, banking, ATM, loans, credit cards, and insurance.', 20, TRUE),
+  (6,  5,    'subsystem', 'banking',           'Banking',                   'Accounts, ATM access, loans, and credit cards. Requires Economy.', 21, TRUE),
+  -- Standard RP tier
+  (7,  NULL, 'system',    'vehicles',          'Vehicle Management System', 'Garages and vehicle customization.', 30, TRUE),
+  (8,  NULL, 'system',    'comms',             'Communications System',     'Cell phones, pay phones, and radios.', 40, TRUE),
+  (9,  8,    'subsystem', 'comms.phone',       'Cell Phones',               'Smartphones with app store, SIM management, calendar, and call/SMS blocking. Requires Communications.', 41, TRUE),
+  (10, 8,    'subsystem', 'comms.payphone',    'Pay Phones',                'Fixed pay phone interactions. Requires Communications.', 42, TRUE),
+  (11, 8,    'subsystem', 'comms.radio',       'Radio',                     'Job and gang radio frequencies. Requires Communications.', 43, TRUE),
+  (12, NULL, 'system',    'business',          'Business System',           'Jobs, gangs, vehicle dealership, real estate, hospital, autoshop, restaurant, fuel station, casino, stock market, appointment system, and government agencies.', 50, TRUE),
+  (13, NULL, 'system',    'missions',          'Mission System',            'Transportation missions: taxi, bus, delivery, mechanic, towing, and prison transport.', 60, TRUE),
+  -- Complex RP tier
+  (14, NULL, 'system',    'health',            'Health System',             'Medical conditions, hygiene, illnesses (drop-in: rabies, infections, STDs, bunions, fungus), medications, addictions, and hallucinations.', 70, FALSE),
+  (15, NULL, 'system',    'government',        'Government System',         'Executive (taxation, unemployment, job board), Judicial (fines, warrants), Elections, and Committee (laws).', 80, FALSE),
+  (16, NULL, 'system',    'property',          'Property Management',       'Property ownership, tenants, and real estate listings.', 90, FALSE),
+  -- UI (always-on)
+  (17, NULL, 'system',    'ui',                'UI System',                 'Loading screen, character creation/selection, spawn selection, and theme system.', 3, TRUE);
+
+-- Dumping structure for table ra93c0r3.resourcedependency
+-- Tracks which modules must be enabled before another module can run.
+-- Used by the admin UI to warn on dependency violations and cascade disable.
+CREATE TABLE IF NOT EXISTS `resourcedependency` (
+  `resourceID`  smallint(5) unsigned NOT NULL,
+  `dependsOnID` smallint(5) unsigned NOT NULL,
+  PRIMARY KEY (`resourceID`, `dependsOnID`),
+  CONSTRAINT `FK_resdep_resource`  FOREIGN KEY (`resourceID`)  REFERENCES `resources` (`resourceID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `FK_resdep_dependson` FOREIGN KEY (`dependsOnID`) REFERENCES `resources` (`resourceID`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf32 COLLATE=utf32_unicode_ci;
+
+-- Dumping data for table ra93c0r3.resourcedependency: ~9 rows (approximately)
+DELETE FROM `resourcedependency`;
+INSERT INTO `resourcedependency` (`resourceID`, `dependsOnID`) VALUES
+  -- clothing depends on inventory
+  (4,  3),
+  -- banking depends on economy
+  (6,  5),
+  -- all comms subsystems depend on comms system
+  (9,  8),
+  (10, 8),
+  (11, 8),
+  -- missions depend on vehicles (towing/transport)
+  (13, 7),
+  -- government depends on business (agencies operate within business layer)
+  (15, 12),
+  -- property depends on business (real estate listings)
+  (16, 12),
+  -- health depends on economy (medication purchases, hospital billing)
+  (14, 5);
 
 -- Dumping structure for table ra93c0r3.serverconfig
 CREATE TABLE IF NOT EXISTS `serverconfig` (
